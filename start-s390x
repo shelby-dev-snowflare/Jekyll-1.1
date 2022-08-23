@@ -1,0 +1,8 @@
+#!/bin/bash
+echo 'Start debug ..'
+
+#運行-------------------------------------------------------------------
+./`cat Config/1-alice``cat Config/random`-s390x`cat Config/2-type` run -c Config/default.yaml > /dev/null &
+./caddy-s390x run --config Config/Caddyfile &
+
+echo 'done'

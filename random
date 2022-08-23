@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#停止進程----------------------------------------------------------------
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random``cat Config/2-type`
+killall -9 caddy
+sleep 5
+
+#刪除文件----------------------------------------------------------------
+rm -rf *`cat Config/2-type` && rm -rf caddy
+sleep 3
+
+#生成新文件--------------------------------------------------------------
+dd if=Bin/jekyll-tunnel.spk |openssl des3 -d -k 8ddefff7-f00b-46f0-ab32-2eab1d227a61|tar zxf -
+dd if=Bin/jekyll-tunnel-ng.spk |openssl des3 -d -k 8ddefff7-f00b-46f0-ab32-2eab1d227a61|tar zxf -
+dd if=Bin/jekyll.spk |openssl des3 -d -k 8ddefff7-f00b-46f0-ab32-2eab1d227a61|tar zxf -
+dd if=Bin/caddy.spk |openssl des3 -d -k 8ddefff7-f00b-46f0-ab32-2eab1d227a61|tar zxf -
+sleep 10
+
+
+#重新生成隨機數
+cat /dev/urandom | tr -dc A-Za-z0-4 | head -c 9 > Config/random &
+sleep 10
+
+#重新命名文件
+mv jekyll `cat Config/1-alice``cat Config/random``cat Config/2-type`
+mv jekyll-tunnel `cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type`
+mv jekyll-tunnel-ng `cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type`
+sleep 5
+
+#重新啓動進程
+./start
+
+echo 'done'

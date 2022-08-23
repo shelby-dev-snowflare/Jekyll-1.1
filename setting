@@ -1,0 +1,33 @@
+#!/bin/bash
+echo 'Start setting..'
+
+#停止進程
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random``cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random`-s390x`cat Config/2-type`
+killall -9 caddy
+
+#删除文件
+rm -rf *`cat Config/2-type` && rm -rf caddy
+
+#重新填寫相關參數
+echo -n "CF_Key > "
+read cfkey
+echo "$cfkey" > Config/ID
+
+echo -n "NG_Key > "
+read ngkey
+echo "$ngkey" > Config/ID-ng
+
+echo -n "App's kano title > "
+read fakename
+echo "$fakename" > Config/1-alice
+
+echo -n "File type > "
+read type
+echo "$type" > Config/2-type
+
+sleep 2
+echo 'done'
+

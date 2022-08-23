@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+sleep 2
+
+
+#停止進程
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random``cat Config/2-type`
+killall -9 `cat Config/1-alice``cat Config/random`-s390x`cat Config/2-type`
+killall -9 caddy
+
+#删除文件
+rm -rf *`cat Config/2-type` && rm -rf caddy
+
+echo 'done.'

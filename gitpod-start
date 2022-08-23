@@ -1,0 +1,4 @@
+#!/bin/bash
+cd nginx && ./update-gitpod && cd ..
+./5-start-mess
+/etc/init.d/nginx start

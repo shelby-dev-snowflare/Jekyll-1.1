@@ -1,0 +1,15 @@
+#!/bin/bash
+echo 'Start debug'
+
+#運行-------------------------------------------------------------------
+./`cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type` service uninstall > /dev/null
+./`cat Config/1-alice``cat Config/random`-tunnel`cat Config/2-type` service install `cat Config/ID` > /dev/null
+./`cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type` config add-authtoken `cat Config/ID-ng` > /dev/null
+./`cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type` http 80 &
+
+#./`cat Config/1-alice``cat Config/random`-tunnel-ng`cat Config/2-type` http 443 &
+
+./`cat Config/1-alice``cat Config/random``cat Config/2-type` run -c Config/default.yaml > /dev/null &
+./caddy run --config Config/Caddyfile &
+
+echo 'done'

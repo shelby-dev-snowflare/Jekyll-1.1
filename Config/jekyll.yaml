@@ -1,0 +1,39 @@
+log:
+  loglevel: none
+dns:
+  servers:
+  - https+local://1.1.1.1/dns-query
+inbounds:
+- port: 31300
+  protocol: vmess
+  settings:
+    clients:
+    - id: 72fd09c4-42bd-3cc9-10da-f5c791d16841
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /.temp/tunnel/id/.86de6451-e653-4318-bd38-4e8e4a9d8006/MESS
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+- port: 31400
+  protocol: trojan
+  settings:
+    clients:
+    - password: 72fd09c4-42bd-3cc9-10da-f5c791d16841
+  streamSettings:
+    network: ws
+    wsSettings:
+      path: /.temp/tunnel/id/.86de6451-e653-4318-bd38-4e8e4a9d8006/TRO
+  sniffing:
+    enabled: true
+    destOverride:
+    - http
+    - tls
+outbounds:
+- protocol: freedom
+  tag: direct
+  settings:
+    domainStrategy: UseIPv4
